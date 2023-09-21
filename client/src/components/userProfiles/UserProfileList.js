@@ -32,19 +32,12 @@ export const UserProfileList = ({ loggedInUser }) => {
                     <td>{up.email}</td>
                     <td>{up.userName}</td>
                     <td>
-                    
-                        {
-                            up.roles.includes("Admin") ? (
-                                <Button
-                                    onClick={() => {
-                                        navigate(`${up.id}`)
-                                    }}>
-                                    Details
-                                </Button>
-                            ) : (
-                                ""
-                            )
-                        }
+                        <Button
+                            onClick={() => {
+                                navigate(`${up.id}`)
+                            }}>
+                            Details
+                        </Button>
                     </td>
                     </tr>
                 ))}

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HouseRules.Migrations
 {
     [DbContext(typeof(HouseRulesDbContext))]
-    [Migration("20230918151716_InitialCreate")]
+    [Migration("20230921180707_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,8 @@ namespace HouseRules.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -57,7 +58,7 @@ namespace HouseRules.Migrations
                         new
                         {
                             Id = 2,
-                            ChoreFrequencyDays = 14,
+                            ChoreFrequencyDays = 7,
                             Difficulty = 4,
                             Name = "Mow the Lawn"
                         },
@@ -71,7 +72,7 @@ namespace HouseRules.Migrations
                         new
                         {
                             Id = 4,
-                            ChoreFrequencyDays = 3,
+                            ChoreFrequencyDays = 2,
                             Difficulty = 3,
                             Name = "Dishes"
                         },
@@ -117,7 +118,49 @@ namespace HouseRules.Migrations
                         {
                             Id = 2,
                             ChoreId = 5,
+                            UserProfileId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ChoreId = 2,
+                            UserProfileId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ChoreId = 4,
+                            UserProfileId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ChoreId = 1,
                             UserProfileId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ChoreId = 3,
+                            UserProfileId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ChoreId = 5,
+                            UserProfileId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ChoreId = 4,
+                            UserProfileId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ChoreId = 1,
+                            UserProfileId = 3
                         });
                 });
 
@@ -151,7 +194,63 @@ namespace HouseRules.Migrations
                         {
                             Id = 1,
                             ChoreId = 3,
+                            CompletedOn = new DateTime(2023, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ChoreId = 1,
+                            CompletedOn = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ChoreId = 4,
+                            CompletedOn = new DateTime(2023, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ChoreId = 2,
+                            CompletedOn = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ChoreId = 5,
+                            CompletedOn = new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ChoreId = 3,
+                            CompletedOn = new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ChoreId = 4,
                             CompletedOn = new DateTime(2023, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ChoreId = 1,
+                            CompletedOn = new DateTime(2023, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ChoreId = 2,
+                            CompletedOn = new DateTime(2023, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserProfileId = 1
                         });
                 });
@@ -193,6 +292,30 @@ namespace HouseRules.Migrations
                             FirstName = "Admina",
                             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             LastName = "Strator"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "834 Road St",
+                            FirstName = "JD",
+                            IdentityUserId = "8b84b12a-0727-41dc-82e3-f44f1f038541",
+                            LastName = "Fitzmartin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "421 High Way",
+                            FirstName = "Josh",
+                            IdentityUserId = "9cb98efe-c05e-4992-9827-bb3f9f0d68ea",
+                            LastName = "Barton"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "5253 Vista St",
+                            FirstName = "Greg",
+                            IdentityUserId = "e8fd99fa-a22c-412c-b45c-703c85ab4585",
+                            LastName = "Korte"
                         });
                 });
 
@@ -225,7 +348,7 @@ namespace HouseRules.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "f89414cb-df29-4be3-a0ab-24a3da1edb43",
+                            ConcurrencyStamp = "499b929a-5e70-4f2c-8953-d0820cfbb834",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -324,15 +447,57 @@ namespace HouseRules.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0698985f-34a1-4d04-b0a2-52c09d35453b",
+                            ConcurrencyStamp = "319c4762-9053-4460-85aa-9d5ab64985ce",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgcS+qc3pqWYFJBag/gtvyUf6ZJa5xngztcPcDE4Mj+reBiy047wan1v8SCX4XvQA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENWLEAwIv9ieQGaINF7RmbBhtrWc9EebkDj60rtphghncJBpWtsf49vcjeFfQ5LKRA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8bc9fb24-55e7-41ee-8d38-029e395649ff",
+                            SecurityStamp = "b4505604-70bd-4331-8217-ce16dc5b5336",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
+                        },
+                        new
+                        {
+                            Id = "8b84b12a-0727-41dc-82e3-f44f1f038541",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "df39e2db-707f-4b94-af8a-1edc98de8f52",
+                            Email = "jdfitz@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEEbC8tWoqBvfEseL2WGiqpi1Ct2K+j/I4YVQwtrE/ehvLX23k+jVNB1hFAbDQvE+TA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a4e2d174-be9a-4cf3-adc5-d83223bf2041",
+                            TwoFactorEnabled = false,
+                            UserName = "jdfitz"
+                        },
+                        new
+                        {
+                            Id = "9cb98efe-c05e-4992-9827-bb3f9f0d68ea",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cf14de85-16d2-48a0-b37d-6a879c996cfd",
+                            Email = "jbarton@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEF2/fOHPt0+ldzOZ7Tz4EVkX3gGhpuSkxJfDPPy2BTbxjbG+elTr92LZAsN7NUs4Rg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3515cd56-79e2-49e9-be65-ce7211eabba8",
+                            TwoFactorEnabled = false,
+                            UserName = "jbarton"
+                        },
+                        new
+                        {
+                            Id = "e8fd99fa-a22c-412c-b45c-703c85ab4585",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7b7a3c16-65a0-48d1-9d30-b5ce52a6f172",
+                            Email = "greg@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEImBMteUtAhpqmukQ7leM19lhq6IUjGLfTxDdjvclUx3PkQEBtL1mtAdOrHbKWtwrQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "dc3b353e-78cb-496f-86c4-28a5ff84927c",
+                            TwoFactorEnabled = false,
+                            UserName = "greg"
                         });
                 });
 

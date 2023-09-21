@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteChore, getChores } from "../../managers/choreManager";
+import { completeChore, deleteChore, getChores } from "../../managers/choreManager";
 import { Button, Table } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,6 +7,10 @@ export const ChoresList = ({ loggedInUser }) => {
     const [chores, setChores] = useState([]);
 
     const navigate = useNavigate();
+
+    const handleComplete = (id) => {
+        completeChore(id, loggedInUser.id);
+    }
 
     const handleDelete = (id) => {
         deleteChore(id).then(() => {
@@ -32,19 +36,36 @@ export const ChoresList = ({ loggedInUser }) => {
                         <th>Frequency</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {chores.map((c) => (
                         <tr key={`chores-${c.id}`}>
                             <th scope="row">{c.id}</th>
-                            <td>{c.name}</td>
+                                {c.choreOverdue
+                                    ?
+                                    <td style={{ color: "red" }}>{c.name}</td>
+                                    :
+                                    <td>{c.name}</td>
+                                }
                             <td>{c.difficulty}</td>
                             <td>Every {c.choreFrequencyDays} Days</td>
+                            <td>
+                                <Button
+                                    color="success"
+                                    onClick={() => {
+                                        handleComplete(c.id);
+                                    }}
+                                >
+                                    Complete
+                                </Button>
+                            </td>
                             {loggedInUser.roles.includes("Admin") ? (
                                 <>
                                     <td>
                                         <Button
+                                            color="info"
                                             onClick={() => {
                                                 navigate(`${c.id}`);
                                             }}

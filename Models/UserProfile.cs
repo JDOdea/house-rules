@@ -14,6 +14,8 @@ public class UserProfile
     [Required]
     public string Address { get; set; }
     [NotMapped] // not mapped means that EF Core won't create column for this property in the db
+    [EmailAddress]
+    [MaxLength(50, ErrorMessage = "Email address must be 50 characters or less")]
     public string Email { get; set; }
     [NotMapped]
     public string UserName { get; set; }

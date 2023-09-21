@@ -22,7 +22,12 @@ public class ChoreController : ControllerBase
     [Authorize]
     public IActionResult Get()
     {
-        return Ok(_dbContext.Chores.ToList());
+        return Ok(_dbContext.Chores
+            .Include(c => c.ChoreAssignments)
+            .ThenInclude(ca => ca.UserProfile)
+            .Include(c => c.ChoreCompletions)
+            .ThenInclude(cc => cc.UserProfile)
+            .ToList());
     }
 
     [HttpGet("{id}")]
@@ -33,6 +38,7 @@ public class ChoreController : ControllerBase
             .Include(c => c.ChoreAssignments)
             .ThenInclude(ca => ca.UserProfile)
             .Include(c => c.ChoreCompletions)
+            .ThenInclude(cc => cc.UserProfile)
             .SingleOrDefault(c => c.Id == id);
 
         if (chore == null)

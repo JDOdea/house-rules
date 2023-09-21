@@ -8,6 +8,7 @@ export const CreateChore = () => {
     const [difficulty, setDifficulty] = useState(0);
     const [frequencyDays, setFrequencyDays] = useState(0);
     const [chores, setChores] = useState([]);
+    const [errors, setErrors] = useState("");
 
     const navigate = useNavigate();
 
@@ -19,10 +20,14 @@ export const CreateChore = () => {
             frequencyDays
         };
         
-        createChore(newChore).then(() => {
-            navigate("/chores");
-        })
-    }
+        createChore(newChore).then((res) => {
+            if (res.errors) {
+                setErrors(res.errors);
+            } else {
+                navigate("/chores");
+            }
+        });
+    };
 
     useEffect(() => {
         getChores().then(setChores);
@@ -31,6 +36,13 @@ export const CreateChore = () => {
 
     return (
         <>
+            <div style={{ color: "red" }}>
+                {Object.keys(errors).map((key) => (
+                    <p key={key}>
+                    {key}: {errors[key].join(",")}
+                    </p>
+                ))}
+            </div>
             <h2>Create Chore</h2>
             <Form>
                 <FormGroup>
@@ -60,13 +72,22 @@ export const CreateChore = () => {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label>Chore Frequency</Label>
+                    <Label htmlFor="frequency">Chore Frequency</Label>
                     <Input 
-                        type="number"
+                        /* type="number" */
+                        list="frequency-numbers"
+                        name="frequency"
                         onChange={(e) => {
                             setFrequencyDays(parseInt(e.target.value));
                         }}
                     />
+                    <datalist id="frequency-numbers">
+                        <option value={1}></option>
+                        <option value={3}></option>
+                        <option value={7}></option>
+                        <option value={10}></option>
+                        <option value={14}></option>
+                    </datalist>
                 </FormGroup>
                 <Button onClick={handleSubmit} color="primary">
                     Submit

@@ -55,7 +55,7 @@ namespace HouseRules.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Difficulty = table.Column<int>(type: "integer", nullable: false),
                     ChoreFrequencyDays = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -247,12 +247,18 @@ namespace HouseRules.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "f89414cb-df29-4be3-a0ab-24a3da1edb43", "Admin", "admin" });
+                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "499b929a-5e70-4f2c-8953-d0820cfbb834", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "0698985f-34a1-4d04-b0a2-52c09d35453b", "admina@strator.comx", false, false, null, null, null, "AQAAAAEAACcQAAAAEFgcS+qc3pqWYFJBag/gtvyUf6ZJa5xngztcPcDE4Mj+reBiy047wan1v8SCX4XvQA==", null, false, "8bc9fb24-55e7-41ee-8d38-029e395649ff", false, "Administrator" });
+                values: new object[,]
+                {
+                    { "8b84b12a-0727-41dc-82e3-f44f1f038541", 0, "df39e2db-707f-4b94-af8a-1edc98de8f52", "jdfitz@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEEbC8tWoqBvfEseL2WGiqpi1Ct2K+j/I4YVQwtrE/ehvLX23k+jVNB1hFAbDQvE+TA==", null, false, "a4e2d174-be9a-4cf3-adc5-d83223bf2041", false, "jdfitz" },
+                    { "9cb98efe-c05e-4992-9827-bb3f9f0d68ea", 0, "cf14de85-16d2-48a0-b37d-6a879c996cfd", "jbarton@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEF2/fOHPt0+ldzOZ7Tz4EVkX3gGhpuSkxJfDPPy2BTbxjbG+elTr92LZAsN7NUs4Rg==", null, false, "3515cd56-79e2-49e9-be65-ce7211eabba8", false, "jbarton" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "319c4762-9053-4460-85aa-9d5ab64985ce", "admina@strator.comx", false, false, null, null, null, "AQAAAAEAACcQAAAAENWLEAwIv9ieQGaINF7RmbBhtrWc9EebkDj60rtphghncJBpWtsf49vcjeFfQ5LKRA==", null, false, "b4505604-70bd-4331-8217-ce16dc5b5336", false, "Administrator" },
+                    { "e8fd99fa-a22c-412c-b45c-703c85ab4585", 0, "7b7a3c16-65a0-48d1-9d30-b5ce52a6f172", "greg@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEImBMteUtAhpqmukQ7leM19lhq6IUjGLfTxDdjvclUx3PkQEBtL1mtAdOrHbKWtwrQ==", null, false, "dc3b353e-78cb-496f-86c4-28a5ff84927c", false, "greg" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Chores",
@@ -260,9 +266,9 @@ namespace HouseRules.Migrations
                 values: new object[,]
                 {
                     { 1, 5, 2, "Vacuuming" },
-                    { 2, 14, 4, "Mow the Lawn" },
+                    { 2, 7, 4, "Mow the Lawn" },
                     { 3, 2, 3, "Clean Litterboxes" },
-                    { 4, 3, 3, "Dishes" },
+                    { 4, 2, 3, "Dishes" },
                     { 5, 4, 3, "Take Out Trash" }
                 });
 
@@ -274,7 +280,13 @@ namespace HouseRules.Migrations
             migrationBuilder.InsertData(
                 table: "UserProfiles",
                 columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "LastName" },
-                values: new object[] { 1, "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" });
+                values: new object[,]
+                {
+                    { 1, "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" },
+                    { 2, "834 Road St", "JD", "8b84b12a-0727-41dc-82e3-f44f1f038541", "Fitzmartin" },
+                    { 3, "421 High Way", "Josh", "9cb98efe-c05e-4992-9827-bb3f9f0d68ea", "Barton" },
+                    { 4, "5253 Vista St", "Greg", "e8fd99fa-a22c-412c-b45c-703c85ab4585", "Korte" }
+                });
 
             migrationBuilder.InsertData(
                 table: "ChoreAssignments",
@@ -282,13 +294,31 @@ namespace HouseRules.Migrations
                 values: new object[,]
                 {
                     { 1, 3, 1 },
-                    { 2, 5, 1 }
+                    { 2, 5, 3 },
+                    { 3, 2, 4 },
+                    { 4, 4, 2 },
+                    { 5, 1, 1 },
+                    { 6, 3, 2 },
+                    { 7, 5, 1 },
+                    { 8, 4, 4 },
+                    { 9, 1, 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ChoreCompletions",
                 columns: new[] { "Id", "ChoreId", "CompletedOn", "UserProfileId" },
-                values: new object[] { 1, 3, new DateTime(2023, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
+                values: new object[,]
+                {
+                    { 1, 3, new DateTime(2023, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 2, 1, new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 3, 4, new DateTime(2023, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 4, 2, new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 5, 5, new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 6, 3, new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 7, 4, new DateTime(2023, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 8, 1, new DateTime(2023, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 9, 2, new DateTime(2023, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

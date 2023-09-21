@@ -33,6 +33,11 @@ return (
                         Chores
                     </NavLink>
                 </NavItem>
+                <NavItem onClick={() => setOpen(false)}>
+                    <NavLink tag={RRNavLink} to="mychores">
+                        My Chores
+                    </NavLink>
+                </NavItem>
                 {loggedInUser.roles.includes("Admin") && (
                     <NavItem onClick={() => setOpen(false)}>
                         <NavLink tag={RRNavLink} to="/users">
